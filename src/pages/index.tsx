@@ -1,10 +1,7 @@
-import { Outlet } from 'react-router-dom'
+export const Loader = () => 'Route loader'
+export const Action = () => 'Route action'
+export const Catch = () => <div>Route errorrrrrr</div>
 
 export default function Home() {
-  return (
-    <div>
-      <h1>Home </h1>
-      <Outlet />
-    </div>
-  )
+  return <h1>Home - Basic</h1>
 }
