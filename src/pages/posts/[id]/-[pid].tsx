@@ -1,3 +1,3 @@
 export default function IdPid() {
-  return <h1>IdPid</h1>
+  return <h1>Id-Pid</h1>
 }
