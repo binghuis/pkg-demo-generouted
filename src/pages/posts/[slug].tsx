@@ -1,4 +1,4 @@
-import { LoaderFunction, useLoaderData } from 'react-router-dom'
+import { LoaderFunction, useLoaderData, useParams } from 'react-router-dom'
 
 type Post = {
   id: string
@@ -13,6 +13,8 @@ export const Loader: LoaderFunction = async ({ params }) => {
 
 export default function Post() {
   const data = useLoaderData() as Post
+  const params = useParams()
+console.log(data.id,params.slug);
 
   return (
     <>
