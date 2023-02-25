@@ -5,6 +5,7 @@ export default function Id() {
   // const { params } = useMatch('/posts/$id')
   const { id } = useParams('/posts/:id')
   const match = useMatch('/posts/:id')
+console.log(match);
 
-  return <h1>Id {id}</h1>
+  return <h1>动态路由：Id {id}</h1>
 }

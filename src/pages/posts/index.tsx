@@ -6,7 +6,7 @@ export default function Index() {
 
   return (
     <>
-      <h1>Posts Index</h1>
+      <h1>嵌套路由：Posts</h1>
 
       <code>
         Loader data

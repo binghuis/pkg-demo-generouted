@@ -16,7 +16,7 @@ export default function Post() {
 
   return (
     <>
-      <h1>Post @ {data.id}</h1>
+      <h1>动态路由：Post @ {data.id}</h1>
 
       <code>
         Loader data

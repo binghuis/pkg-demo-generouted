@@ -1,3 +1,3 @@
 export default function New() {
-  return <h1>New</h1>;
+  return <h1>基本路由：New</h1>;
 }
