@@ -20,7 +20,9 @@ const Authlogin = lazy(() => import("./pages/(auth)/login"));
 const Authregister = lazy(() => import("./pages/(auth)/register"));
 const Postsiddeep = lazy(() => import("./pages/posts/[id].deep"));
 const Postsid = lazy(() => import("./pages/posts/[id]"));
-const Postsslug = lazy(() => import("./pages/posts/[slug]"));
+const PostsidError = lazy(() =>
+  import("./pages/posts/[id]").then((m) => ({ default: m.Catch }))
+);
 const Postsindex = lazy(() => import("./pages/posts/index"));
 const Splatall = lazy(() => import("./pages/splat/[...all]"));
 const Postsidpid = lazy(() => import("./pages/posts/[id]/-[pid]"));
@@ -57,6 +59,11 @@ const config = [
         id: "postsid",
         path: ":id",
         element: <Suspense fallback={null} children={<Postsid />} />,
+        loader: (args: any) =>
+          import("./pages/posts/[id]").then((m) =>
+            m.Loader.apply(m.Loader, [args] as any)
+          ),
+        errorElement: <Suspense fallback={null} children={<PostsidError />} />,
         children: [
           {
             id: "postsidpid",
@@ -64,15 +71,6 @@ const config = [
             element: <Suspense fallback={null} children={<Postsidpid />} />,
           },
         ],
-      },
-      {
-        id: "postsslug",
-        path: ":slug",
-        element: <Suspense fallback={null} children={<Postsslug />} />,
-        loader: (args: any) =>
-          import("./pages/posts/[slug]").then((m) =>
-            m.Loader.apply(m.Loader, [args] as any)
-          ),
       },
     ],
     element: <Suspense fallback={null} children={<Posts />} />,
@@ -132,14 +130,12 @@ type Path =
   | `/posts/:id`
   | `/posts/:id/:pid?`
   | `/posts/:id/deep`
-  | `/posts/:slug`
   | `/register`
   | `/splat/${string}`;
 
 type Params = {
   "/posts/:id/deep": { id: string };
   "/posts/:id": { id: string };
-  "/posts/:slug": { slug: string };
   "/posts/:id/:pid?": { id: string; pid?: string };
 };
 

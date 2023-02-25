@@ -13,6 +13,7 @@ specifiers:
   react-dom: ^18.2.0
   react-router-dom: ^6.8.1
   typescript: ^4.9.3
+  use-react-router-breadcrumbs: ^4.0.1
   vite: ^4.1.0
 
 dependencies:
@@ -23,6 +24,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.8.1_biqbaboplfbrettd7655fr4n2y
+  use-react-router-breadcrumbs: 4.0.1_ohu4r4qses2nsgvs6znzfg6fwi
 
 devDependencies:
   '@types/react': 18.0.28
@@ -1778,6 +1780,16 @@ packages:
       escalade: 3.1.1
       picocolors: 1.0.0
     dev: true
+
+  /use-react-router-breadcrumbs/4.0.1_ohu4r4qses2nsgvs6znzfg6fwi:
+    resolution: {integrity: sha512-Zbcy0KvWt1JePFcUHJAnTr7Z+AeO9WxmPs6A5Q/xqOVoi8edPKzpqHF87WB2opXwie/QjCxrEyTB7kFg7fgXvQ==}
+    peerDependencies:
+      react: '>=16.8'
+      react-router-dom: '>=6.0.0'
+    dependencies:
+      react: 18.2.0
+      react-router-dom: 6.8.1_biqbaboplfbrettd7655fr4n2y
+    dev: false
 
   /vite/4.1.4:
     resolution: {integrity: sha512-3knk/HsbSTKEin43zHu7jTwYWv81f8kgAL99G5NWBcA1LKvtvcVAC4JjBH1arBunO9kQka+1oGbrMKOjk4ZrBg==}

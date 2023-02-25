@@ -1,50 +1,14 @@
 import { Outlet } from "react-router-dom";
-
+import useBreadcrumbs from "use-react-router-breadcrumbs";
 import { Link, useNavigate, useParams, Navigate } from "../routes.gen";
 
 import React, { useState } from "react";
-import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[]
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
-}
-
-const items: MenuItem[] = [
-  getItem("Option 1", "1", <PieChartOutlined />),
-  getItem("Option 2", "2", <DesktopOutlined />),
-  getItem("User", "sub1", <UserOutlined />, [
-    getItem("Tom", "3"),
-    getItem("Bill", "4"),
-    getItem("Alex", "5"),
-  ]),
-  getItem("Team", "sub2", <TeamOutlined />, [
-    getItem("Team 1", "6"),
-    getItem("Team 2", "8"),
-  ]),
-  getItem("Files", "9", <FileOutlined />),
-];
 
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -62,8 +26,10 @@ const App: React.FC = () => {
   const d = () => navigate("/posts/:id/deep", { params: { id: "d" } });
   const e = () => navigate("/posts/:id/deep", { params: { id: "e" } });
 
+  const breadcrumbs = useBreadcrumbs();
+
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout  >
       <Sider
         collapsible
         collapsed={collapsed}
@@ -80,25 +46,54 @@ const App: React.FC = () => {
           theme="dark"
           defaultSelectedKeys={["1"]}
           mode="inline"
-          items={items}
+          items={[
+            { key: "1", title: "Home", label: <Link to={"/"}>Home</Link> },
+            {
+              key: "/about",
+              title: "About",
+              label: <Link to={"/about"}>About</Link>,
+            },
+            {
+              key: "/login",
+              title: "Login",
+              label: <Link to={"/login"}>Login</Link>,
+            },
+            { key: "/new", title: "New", label: <Link to={"/new"}>New</Link> },
+            {
+              key: "/posts",
+              title: "Posts",
+              label: <Link to={"/posts"}>Posts</Link>,
+            },
+            {
+              key: "/posts/:id",
+              title: "Posts by id",
+              label: (
+                <Link to="/posts/:id" params={{ id: "1" }}>
+                  Posts by id
+                </Link>
+              ),
+            },
+            {
+              key: "/posts/:id/:pid?",
+              title: "Posts by id/pid",
+              label: (
+                <Link to="/posts/:id/:pid?" params={{ id: "1", pid: "2" }}>
+                  Posts by id/pid
+                </Link>
+              ),
+            },
+          ]}
         />
       </Sider>
-      <Layout className="site-layout">
+      <Layout style={{position:'relative'}}>
         <Header style={{ padding: 0, background: colorBgContainer }} />
-        <Content style={{ margin: "0 16px" }}>
-          <header style={{ display: "flex", gap: 24 }}>
-            <Link to="/">Home</Link>
-            <Link to={{ pathname: "/about" }}>About</Link>
-            <Link to="/posts">Posts</Link>
-            <Link to="/posts/:id/:pid?" params={{ id: "1", pid: "2" }}>
-              Posts by id/pid
-            </Link>
-            <Link to="/posts/:id" params={{ id: "id" }}>
-              Posts by id
-            </Link>
-            <button onClick={e}>navigate to</button>
-          </header>
-
+        <Breadcrumb>
+          {breadcrumbs.map(({ breadcrumb, key, match, location }) => {
+            return <Breadcrumb.Item key={key}>{breadcrumb}</Breadcrumb.Item>;
+          })}
+        </Breadcrumb>
+        <Content >
+          {/* <button onClick={e}>navigate to</button> */}
           <Outlet />
         </Content>
       </Layout>

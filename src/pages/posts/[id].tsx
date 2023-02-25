@@ -1,11 +1,29 @@
-import { useMatch } from 'react-router-dom'
-import { useParams } from '@/routes.gen'
+import { LoaderFunction, useLoaderData } from "react-router-dom";
 
-export default function Id() {
-  // const { params } = useMatch('/posts/$id')
-  const { id } = useParams('/posts/:id')
-  const match = useMatch('/posts/:id')
-console.log(match);
+type Post = {
+  id: string;
+  userId: string;
+  title?: string;
+  body?: string;
+};
 
-  return <h1>动态路由：Id {id}</h1>
+export const Loader: LoaderFunction = async ({ params }) => {
+  return fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`).then(
+    (response) => response.json()
+  );
+};
+export const Catch = () => <div>页面有错误</div>;
+export default function Post() {
+  const data = useLoaderData() as Post;
+
+  return (
+    <div style={{ width: "100%" }}>
+      <h1>动态路由：Post @ {data.id}</h1>
+
+      <code>
+        Loader data
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </code>
+    </div>
+  );
 }
