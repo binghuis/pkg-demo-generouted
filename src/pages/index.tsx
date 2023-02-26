@@ -5,6 +5,6 @@ export const Action = () => 'Route action'
 export const Catch = () => <div>Route errorrrrrr</div>
 
 export default function Home() {
-  
-  return <h1>基本路由：Home</h1>
+
+  return <h1>基本路由：Home3</h1>
 }

@@ -93,7 +93,7 @@ const App: React.FC = () => {
           })}
         </Breadcrumb>
         <Content >
-          {/* <button onClick={e}>navigate to</button> */}
+          <button onClick={e}>navigate to</button>
           <Outlet />
         </Content>
       </Layout>

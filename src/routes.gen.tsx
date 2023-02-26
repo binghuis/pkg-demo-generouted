@@ -18,13 +18,13 @@ const IndexError = lazy(() =>
 const New = lazy(() => import("./pages/new"));
 const Authlogin = lazy(() => import("./pages/(auth)/login"));
 const Authregister = lazy(() => import("./pages/(auth)/register"));
+const Splatall = lazy(() => import("./pages/splat/[...all]"));
 const Postsiddeep = lazy(() => import("./pages/posts/[id].deep"));
 const Postsid = lazy(() => import("./pages/posts/[id]"));
 const PostsidError = lazy(() =>
   import("./pages/posts/[id]").then((m) => ({ default: m.Catch }))
 );
 const Postsindex = lazy(() => import("./pages/posts/index"));
-const Splatall = lazy(() => import("./pages/splat/[...all]"));
 const Postsidpid = lazy(() => import("./pages/posts/[id]/-[pid]"));
 const App = app || Outlet;
 const NoMatch = noMatch || Fragment;

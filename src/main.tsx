@@ -5,8 +5,8 @@ import "./index.css";
 import { Routes } from "./routes.gen";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    {/* <ConfigProvider > */}
+    <ConfigProvider >
       <Routes />
-    {/* </ConfigProvider> */}
+    </ConfigProvider>
   </React.StrictMode>
 );
