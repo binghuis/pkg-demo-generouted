@@ -18,13 +18,17 @@ const IndexError = lazy(() =>
 const New = lazy(() => import("./pages/new"));
 const Authlogin = lazy(() => import("./pages/(auth)/login"));
 const Authregister = lazy(() => import("./pages/(auth)/register"));
-const Splatall = lazy(() => import("./pages/splat/[...all]"));
 const Postsiddeep = lazy(() => import("./pages/posts/[id].deep"));
 const Postsid = lazy(() => import("./pages/posts/[id]"));
 const PostsidError = lazy(() =>
   import("./pages/posts/[id]").then((m) => ({ default: m.Catch }))
 );
 const Postsindex = lazy(() => import("./pages/posts/index"));
+const Poststesthmr = lazy(() => import("./pages/posts/test-hmr"));
+const PoststesthmrError = lazy(() =>
+  import("./pages/posts/test-hmr").then((m) => ({ default: m.Catch }))
+);
+const Splatall = lazy(() => import("./pages/splat/[...all]"));
 const Postsidpid = lazy(() => import("./pages/posts/[id]/-[pid]"));
 const App = app || Outlet;
 const NoMatch = noMatch || Fragment;
@@ -45,6 +49,18 @@ const config = [
     path: "posts",
     id: "posts",
     children: [
+      {
+        id: "poststesthmr",
+        path: "test-hmr",
+        element: <Suspense fallback={null} children={<Poststesthmr />} />,
+        loader: (args: any) =>
+          import("./pages/posts/test-hmr").then((m) =>
+            m.Loader.apply(m.Loader, [args] as any)
+          ),
+        errorElement: (
+          <Suspense fallback={null} children={<PoststesthmrError />} />
+        ),
+      },
       {
         id: "postsindex",
         index: true,
@@ -130,6 +146,7 @@ type Path =
   | `/posts/:id`
   | `/posts/:id/:pid?`
   | `/posts/:id/deep`
+  | `/posts/test-hmr`
   | `/register`
   | `/splat/${string}`;
 
