@@ -3,7 +3,7 @@
 
 import { Fragment, lazy, Suspense } from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import { components, hooks } from "@generouted/react-router/client";
+import { components, hooks, utils } from "@generouted/react-router/client";
 
 import app from "./pages/_app";
 import noMatch from "./pages/404";
@@ -167,3 +167,4 @@ export const Routes = () => (
 );
 export const { Link, Navigate } = components<Path, Params>();
 export const { useNavigate, useParams } = hooks<Path, Params>();
+export const { rediect } = utils<Path, Params>();
