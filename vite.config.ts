@@ -6,9 +6,7 @@ import Inspect from "vite-plugin-inspect";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react({
-      exclude: "./src/routes.gen.tsx",
-    }),
+    react(),
     generouted(),
     Inspect(),
   ],

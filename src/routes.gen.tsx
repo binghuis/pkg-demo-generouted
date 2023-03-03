@@ -9,27 +9,23 @@ import app from "./pages/_app";
 import noMatch from "./pages/404";
 
 const Auth = lazy(() => import("./pages/(auth)/_layout"));
-const Posts = lazy(() => import("./pages/posts/_layout"));
+const Authlogin = lazy(() => import("./pages/(auth)/login"));
+const Authregister = lazy(() => import("./pages/(auth)/register"));
 const About = lazy(() => import("./pages/about"));
 const Index = lazy(() => import("./pages/index"));
 const IndexError = lazy(() =>
   import("./pages/index").then((m) => ({ default: m.Catch }))
 );
 const New = lazy(() => import("./pages/new"));
-const Authlogin = lazy(() => import("./pages/(auth)/login"));
-const Authregister = lazy(() => import("./pages/(auth)/register"));
+const Posts = lazy(() => import("./pages/posts/_layout"));
 const Postsiddeep = lazy(() => import("./pages/posts/[id].deep"));
 const Postsid = lazy(() => import("./pages/posts/[id]"));
 const PostsidError = lazy(() =>
   import("./pages/posts/[id]").then((m) => ({ default: m.Catch }))
 );
-const Postsindex = lazy(() => import("./pages/posts/index"));
-const Poststesthmr = lazy(() => import("./pages/posts/test-hmr"));
-const PoststesthmrError = lazy(() =>
-  import("./pages/posts/test-hmr").then((m) => ({ default: m.Catch }))
-);
-const Splatall = lazy(() => import("./pages/splat/[...all]"));
 const Postsidpid = lazy(() => import("./pages/posts/[id]/-[pid]"));
+const Postsindex = lazy(() => import("./pages/posts/index"));
+const Splatall = lazy(() => import("./pages/splat/[...all]"));
 const App = app || Outlet;
 const NoMatch = noMatch || Fragment;
 
@@ -49,18 +45,6 @@ const config = [
     path: "posts",
     id: "posts",
     children: [
-      {
-        id: "poststesthmr",
-        path: "test-hmr",
-        element: <Suspense fallback={null} children={<Poststesthmr />} />,
-        loader: (args: any) =>
-          import("./pages/posts/test-hmr").then((m) =>
-            m.Loader.apply(m.Loader, [args] as any)
-          ),
-        errorElement: (
-          <Suspense fallback={null} children={<PoststesthmrError />} />
-        ),
-      },
       {
         id: "postsindex",
         index: true,
@@ -146,7 +130,6 @@ type Path =
   | `/posts/:id`
   | `/posts/:id/:pid?`
   | `/posts/:id/deep`
-  | `/posts/test-hmr`
   | `/register`
   | `/splat/${string}`;
 
