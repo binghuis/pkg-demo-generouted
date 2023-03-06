@@ -7,7 +7,7 @@ export default function About() {
   return (
     <div>
       <button onClick={() => modals.open("/modal")}>Open modal</button>
-      <button onClick={() => modals.open("/modal", { at: "/about" })}>
+      <button onClick={() => modals.open("/modal", { at: "/login" })}>
         Global modal at /about
       </button>
       <Modals></Modals>
