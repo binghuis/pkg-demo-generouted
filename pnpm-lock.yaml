@@ -1,12 +1,12 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@generouted/react-router': ^1.7.20
+  '@generouted/react-router': ^1.9.0
   '@types/react': ^18.0.27
   '@types/react-dom': ^18.0.10
   '@vitejs/plugin-react': ^3.1.0
   antd: ^5.2.3
-  generouted: ^1.7.20
+  generouted: ^1.9.0
   prettier: ^2.8.4
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -23,11 +23,11 @@ dependencies:
   use-react-router-breadcrumbs: 4.0.1_q3ojgupicxbicm2cisqsqz5tyi
 
 devDependencies:
-  '@generouted/react-router': 1.7.20_vite@4.1.4
+  '@generouted/react-router': 1.9.0_vite@4.1.4
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
   '@vitejs/plugin-react': 3.1.0_vite@4.1.4
-  generouted: 1.7.20_vite@4.1.4
+  generouted: 1.9.0_vite@4.1.4
   prettier: 2.8.4
   typescript: 4.9.5
   vite: 4.1.4
@@ -536,8 +536,8 @@ packages:
     dev: true
     optional: true
 
-  /@generouted/react-router/1.7.20_vite@4.1.4:
-    resolution: {integrity: sha512-QLX2PW0W6Fzb3921A6UETYZ4VHhK9RX40XQLsk19lJEqab2fXGfDuAWo2TnFauew4s5rfrIUzsErLrUjAzETIQ==}
+  /@generouted/react-router/1.9.0_vite@4.1.4:
+    resolution: {integrity: sha512-1qZATCI7iT8D7qfsXtOZX4IkO2VMS4hb4G2shrs0Z+JPZXu0xVrSem8ytXcFrLlG9iMzvrN+mzZQ1lNLGfuiFg==}
     peerDependencies:
       vite: '>=3'
     dependencies:
@@ -947,8 +947,8 @@ packages:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
     dev: true
 
-  /generouted/1.7.20_vite@4.1.4:
-    resolution: {integrity: sha512-p5knSrOFKyr3nFoWNJSOuxT3EtTUHpmw5L5/W/n7Fr2595czvfswDXDql9P0JgP+9tXZXFJt9h39f4t2Dl7+6Q==}
+  /generouted/1.9.0_vite@4.1.4:
+    resolution: {integrity: sha512-QTTGaQMn6ZjtIdOaLFoJl46ZAp+GyvaFxsGFr9lkOImh/U+gkBktSNQl1+JVMCy8QsiO1T7mkOfYFa5qtu3lDA==}
     peerDependencies:
       vite: '>=3'
     dependencies:

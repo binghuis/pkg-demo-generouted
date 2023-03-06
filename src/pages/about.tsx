@@ -1,3 +1,17 @@
+import { useModals } from "@/router";
+import { Modals } from "generouted/react-router";
+
 export default function About() {
-  return <h1>基本路由：About</h1>;
+  const modals = useModals();
+
+  return (
+    <div>
+      <button onClick={() => modals.open("/modal")}>Open modal</button>
+      <button onClick={() => modals.open("/modal", { at: "/about" })}>
+        Global modal at /about
+      </button>
+      <Modals></Modals>
+      <h1>基本路由：About</h1>
+    </div>
+  );
 }
