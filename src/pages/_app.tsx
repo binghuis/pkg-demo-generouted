@@ -9,23 +9,21 @@ import Sider from "antd/es/layout/Sider";
 import { Content } from "antd/es/layout/layout";
 import { ItemType } from "antd/es/menu/hooks/useItems";
 import { Link } from "@/router";
-import useBreadcrumbs from "use-react-router-breadcrumbs";
 
 const App: React.FC = () => {
   const [selectedKeys, setSelectedKeys] = useState<string[]>();
   const matches = useMatches();
   const location = useLocation();
+
   useEffect(() => {
     const match = matches.filter(
       ({ pathname }) => pathname === location.pathname
     );
-    console.log(match);
     setSelectedKeys(match.map((v) => v.id));
   }, [location.pathname]);
-  const breadcrumbs = useBreadcrumbs();
+
   return (
     <div>
-      <div>{breadcrumbs.map(({ breadcrumb }) => breadcrumb)}</div>
       <Sider>
         <Menu
           selectedKeys={selectedKeys}
