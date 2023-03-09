@@ -9,10 +9,6 @@ type Post = {
   body?: string;
 };
 
-export const Crumb = ({ params }: any) => {
-  return <div>PostId{params.id}</div>;
-};
-
 export const Loader: LoaderFunction = async ({ params }) => {
   return fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`).then(
     (response) => response.json()

@@ -6,6 +6,11 @@ export const Loader = () => {
   });
 };
 
+export const Crumb = (props: any) => {
+  const { params } = props;
+  return <div>PostId{params.id}</div>;
+};
+
 export default function PostsLayout() {
   return (
     <>
