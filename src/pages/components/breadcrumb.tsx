@@ -5,11 +5,10 @@ import { lazy, Suspense, useEffect, useId, useState } from "react";
 const Breadcrumb: React.FunctionComponent = () => {
   const matches = useMatches();
   const [breadcrumbs, setBreadcrumbs] = useState<any[]>([]);
+console.log(matches);
 
   const loadBreadcrumbs = async () => {
     const breadcrumbPromises = matches.map(async (match, index) => {
-      console.log(index, matches.length - 1);
-
       const handle = (await match.handle) as Module;
       if (handle && handle.Crumb) {
         const Crumb = handle.Crumb;
@@ -19,7 +18,7 @@ const Breadcrumb: React.FunctionComponent = () => {
           index < matches.length - 1 ? (
             <Link to={match.pathname}>{element}</Link>
           ) : (
-            <span>{ element }</span>
+            <span>{element}</span>
           );
         return { default: () => breadcrumb };
       }
