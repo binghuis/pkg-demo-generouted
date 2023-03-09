@@ -1,3 +1,5 @@
+import { Link, useParams } from "@/router";
+import { FC } from "react";
 import { LoaderFunction, useLoaderData } from "react-router-dom";
 
 type Post = {
@@ -7,13 +9,17 @@ type Post = {
   body?: string;
 };
 
+export const Crumb = ({ params }: any) => {
+  return <div>PostId{params.id}</div>;
+};
+
 export const Loader: LoaderFunction = async ({ params }) => {
   return fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`).then(
     (response) => response.json()
   );
 };
 export const Catch = () => <div>页面有错误</div>;
-export default function Post() {
+const Post: FC = () => {
   const data = useLoaderData() as Post;
 
   return (
@@ -26,4 +32,6 @@ export default function Post() {
       </code>
     </div>
   );
-}
+};
+Post.displayName = "文章id";
+export default Post;

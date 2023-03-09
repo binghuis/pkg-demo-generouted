@@ -1,5 +1,7 @@
-import { useModals } from "@/router";
+import { Link, useModals } from "@/router";
 import { Modals } from "generouted/react-router";
+
+export const Crumb = "关于";
 
 export default function About() {
   const modals = useModals();

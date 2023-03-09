@@ -2,16 +2,23 @@
  * 本组件不要直接引用 generouted/react-router，会导致循环依赖
  */
 
-import React, { useEffect, useState } from "react";
+import React, {
+  FunctionComponent,
+  lazy,
+  Suspense,
+  useEffect,
+  useState,
+} from "react";
 import { Menu } from "antd";
 import { Outlet, useLocation, useMatches } from "react-router-dom";
 import Sider from "antd/es/layout/Sider";
 import { Content } from "antd/es/layout/layout";
-import { ItemType } from "antd/es/menu/hooks/useItems";
-import { Link } from "@/router";
+import { Link as TypeSafeLink } from "@/router";
+import Breadcrumb from "./components/breadcrumb";
 
 const App: React.FC = () => {
   const [selectedKeys, setSelectedKeys] = useState<string[]>();
+
   const matches = useMatches();
   const location = useLocation();
 
@@ -24,6 +31,7 @@ const App: React.FC = () => {
 
   return (
     <div>
+      <Breadcrumb />
       <Sider>
         <Menu
           selectedKeys={selectedKeys}
@@ -32,17 +40,23 @@ const App: React.FC = () => {
           }}
           mode="inline"
           items={[
-            { label: <Link to="/about">about</Link>, key: "about" },
-            { label: <Link to="/login">login</Link>, key: "(auth)/login" },
             {
-              label: <Link to="/posts">posts</Link>,
+              label: <TypeSafeLink to="/about">about</TypeSafeLink>,
+              key: "about",
+            },
+            {
+              label: <TypeSafeLink to="/login">login</TypeSafeLink>,
+              key: "(auth)/login",
+            },
+            {
+              label: <TypeSafeLink to="/posts">posts</TypeSafeLink>,
               key: "posts",
               children: [
                 {
                   label: (
-                    <Link to="/posts/:id" params={{ id: "1" }}>
+                    <TypeSafeLink to="/posts/:id" params={{ id: "1" }}>
                       posts:id
-                    </Link>
+                    </TypeSafeLink>
                   ),
                   key: "postsid",
                 },
