@@ -1,25 +1,26 @@
 import { Link, useMatches } from "react-router-dom";
 import { Module } from "@/routes/regular";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useId, useState } from "react";
 
 const Breadcrumb: React.FunctionComponent = () => {
   const matches = useMatches();
   const [breadcrumbs, setBreadcrumbs] = useState<any[]>([]);
 
   const loadBreadcrumbs = async () => {
-    const breadcrumbPromises = matches.map(async (match) => {
+    const breadcrumbPromises = matches.map(async (match, index) => {
+      console.log(index, matches.length - 1);
+
       const handle = (await match.handle) as Module;
       if (handle && handle.Crumb) {
         const Crumb = handle.Crumb;
-        const breadcrumb = (
-          <Link to={match.pathname}>
-            {typeof Crumb === "string" ? (
-              Crumb
-            ) : (
-              <Crumb params={match.params} />
-            )}
-          </Link>
-        );
+        const element =
+          typeof Crumb === "string" ? Crumb : <Crumb params={match.params} />;
+        const breadcrumb =
+          index < matches.length - 1 ? (
+            <Link to={match.pathname}>{element}</Link>
+          ) : (
+            <span>{ element }</span>
+          );
         return { default: () => breadcrumb };
       }
     });
@@ -38,8 +39,18 @@ const Breadcrumb: React.FunctionComponent = () => {
 
   return (
     <span>
+      {breadcrumbs.length > 0 && (
+        <span>
+          <Link to={"/"}>首页</Link>/
+        </span>
+      )}
       {breadcrumbs?.map((Breadcrumb, i) => {
-        return <Suspense key={i} fallback={null} children={<Breadcrumb />} />;
+        return (
+          <span key={i}>
+            <Suspense fallback={null} children={<Breadcrumb />} />
+            {i < breadcrumbs.length - 1 && <span>/</span>}
+          </span>
+        );
       })}
     </span>
   );
