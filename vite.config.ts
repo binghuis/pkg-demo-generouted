@@ -6,7 +6,7 @@ import generouted from "@generouted/react-router";
 export default defineConfig({
   plugins: [
     react(),
-    generouted(),
+    generouted({ source: ['./src/pages/**/[\\w[-]*.{jsx,tsx}', '!./src/pages/**/components/**'] })
   ],
   resolve: { alias: { "@": "/src" } },
 });

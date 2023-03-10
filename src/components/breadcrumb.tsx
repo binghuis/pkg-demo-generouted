@@ -4,16 +4,16 @@ import { useEffect, useState } from "react";
 
 const Breadcrumb: React.FunctionComponent = () => {
   const matches = useMatches();
-  const [breadcrumbs, setBreadcrumbs] = useState<any[]>([]);
+  const [breadcrumbs, setBreadcrumbs] = useState<JSX.Element[]>([]);
 
   const loadBreadcrumbs = async () => {
-    const loadedBreadcrumbs = await Promise.all(
+    const loadedHandle = await Promise.all(
       matches.map(async (match) => ({
         ...match,
         handle: (await match.handle) as Module,
       }))
     );
-    const breadcrumbs = loadedBreadcrumbs
+    const breadcrumbs = loadedHandle
       .filter((loadedBreadcrumb) => Boolean(loadedBreadcrumb?.handle?.Crumb))
       .map((filteredBreadcrumb, index, filteredBreadcrumbs) => {
         const { handle, pathname, params } = filteredBreadcrumb;
@@ -33,23 +33,30 @@ const Breadcrumb: React.FunctionComponent = () => {
     loadBreadcrumbs();
   }, [matches]);
 
-  return (
-    <span>
-      {breadcrumbs.length > 0 && (
-        <span>
-          <Link to={"/"}>首页</Link>/
-        </span>
-      )}
-      {breadcrumbs?.map((Breadcrumb, i) => {
-        return (
-          <span key={i}>
-            {Breadcrumb}
-            {i < breadcrumbs.length - 1 && <span>/</span>}
+  const renderBreadcrumb = () => {
+    if (!breadcrumbs || breadcrumbs.length === 0) {
+      return null;
+    }
+    return (
+      <span>
+        {breadcrumbs.length > 0 && (
+          <span>
+            <Link to={"/"}>Home</Link>/
           </span>
-        );
-      })}
-    </span>
-  );
+        )}
+        {breadcrumbs.map((Breadcrumb, i) => {
+          return (
+            <span key={i}>
+              {Breadcrumb}
+              {i < breadcrumbs.length - 1 && <span>/</span>}
+            </span>
+          );
+        })}
+      </span>
+    );
+  };
+
+  return <>{renderBreadcrumb()}</>;
 };
 
 export default Breadcrumb;

@@ -10,11 +10,13 @@ import React, {
   useState,
 } from "react";
 import { Menu } from "antd";
-import { Outlet, useLocation, useMatches } from "react-router-dom";
+import { Outlet, RouteObject, useLocation, useMatches } from "react-router-dom";
 import Sider from "antd/es/layout/Sider";
 import { Content } from "antd/es/layout/layout";
 import { Link as TypeSafeLink } from "@/router";
-import Breadcrumb from "./components/breadcrumb";
+import Breadcrumb from "../components/breadcrumb";
+import { regularRoutes } from "@/routes/regular";
+import { ItemType, MenuItemType } from "antd/es/menu/hooks/useItems";
 
 const App: React.FC = () => {
   const [selectedKeys, setSelectedKeys] = useState<string[]>();
@@ -28,6 +30,7 @@ const App: React.FC = () => {
     );
     setSelectedKeys(match.map((v) => v.id));
   }, [location.pathname]);
+
 
   return (
     <div>
