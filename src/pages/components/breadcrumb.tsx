@@ -18,17 +18,14 @@ const Breadcrumb: React.FunctionComponent = () => {
       .map((filteredBreadcrumb, index, filteredBreadcrumbs) => {
         const { handle, pathname, params } = filteredBreadcrumb;
         const Crumb = handle.Crumb as NonNullable<Module["Crumb"]>;
-
         const element =
           typeof Crumb === "string" ? Crumb : <Crumb params={params} />;
-
         if (index < filteredBreadcrumbs.length - 1) {
           return <Link to={pathname}>{element}</Link>;
         } else {
           return <span>{element}</span>;
         }
       });
-
     setBreadcrumbs(breadcrumbs);
   };
 
