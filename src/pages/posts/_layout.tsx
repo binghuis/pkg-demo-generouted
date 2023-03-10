@@ -8,7 +8,7 @@ export const Loader = () => {
 
 export const Crumb = (props: any) => {
   const { params } = props;
-  return <div>PostId{params.id}</div>;
+  return <span>PostId{params.id}</span>;
 };
 
 export default function PostsLayout() {

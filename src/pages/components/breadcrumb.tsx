@@ -1,35 +1,35 @@
 import { Link, useMatches } from "react-router-dom";
 import { Module } from "@/routes/regular";
-import { lazy, Suspense, useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Breadcrumb: React.FunctionComponent = () => {
   const matches = useMatches();
   const [breadcrumbs, setBreadcrumbs] = useState<any[]>([]);
-console.log(matches);
 
   const loadBreadcrumbs = async () => {
-    const breadcrumbPromises = matches.map(async (match, index) => {
-      const handle = (await match.handle) as Module;
-      if (handle && handle.Crumb) {
-        const Crumb = handle.Crumb;
+    const loadedBreadcrumbs = await Promise.all(
+      matches.map(async (match) => ({
+        ...match,
+        handle: (await match.handle) as Module,
+      }))
+    );
+    const breadcrumbs = loadedBreadcrumbs
+      .filter((loadedBreadcrumb) => Boolean(loadedBreadcrumb?.handle?.Crumb))
+      .map((filteredBreadcrumb, index, filteredBreadcrumbs) => {
+        const { handle, pathname, params } = filteredBreadcrumb;
+        const Crumb = handle.Crumb as NonNullable<Module["Crumb"]>;
+
         const element =
-          typeof Crumb === "string" ? Crumb : <Crumb params={match.params} />;
-        const breadcrumb =
-          index < matches.length - 1 ? (
-            <Link to={match.pathname}>{element}</Link>
-          ) : (
-            <span>{element}</span>
-          );
-        return { default: () => breadcrumb };
-      }
-    });
-    const loadedBreadcrumbs = await Promise.all(breadcrumbPromises);
-    const filteredBreadcrumbs = loadedBreadcrumbs
-      .filter(Boolean)
-      .map((breadcrumb) => {
-        return lazy(() => Promise.resolve(breadcrumb as any));
+          typeof Crumb === "string" ? Crumb : <Crumb params={params} />;
+
+        if (index < filteredBreadcrumbs.length - 1) {
+          return <Link to={pathname}>{element}</Link>;
+        } else {
+          return <span>{element}</span>;
+        }
       });
-    setBreadcrumbs(filteredBreadcrumbs);
+
+    setBreadcrumbs(breadcrumbs);
   };
 
   useEffect(() => {
@@ -46,7 +46,7 @@ console.log(matches);
       {breadcrumbs?.map((Breadcrumb, i) => {
         return (
           <span key={i}>
-            <Suspense fallback={null} children={<Breadcrumb />} />
+            {Breadcrumb}
             {i < breadcrumbs.length - 1 && <span>/</span>}
           </span>
         );
