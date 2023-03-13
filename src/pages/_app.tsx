@@ -34,7 +34,7 @@ const App: React.FC = () => {
               children: [
                 {
                   label: "posts",
-                  path: "/posts/",
+                  path: '/posts/',
                   children: [
                     { label: "postsintrotest", path: "/posts/intro/test" },
                   ],

@@ -2,11 +2,12 @@ import { Link, matchPath, useLocation, useMatches } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Menu } from "antd";
 import { ItemType } from "antd/es/menu/hooks/useItems";
+import { Path } from "@/router";
 interface Item {
   icon?: React.ReactNode;
   label: string;
-  path: string;
-  related?: string[];
+  path: Path | string;
+  related?: (Path | string)[];
   children?: Item[];
 }
 
@@ -30,8 +31,13 @@ const SuperMenu: React.FunctionComponent<IProps> = (props) => {
         if (!match && !isChild && item.related) {
           match = item.related.some((path) => matchPath(path, pathname));
         }
+        keys.push(item.path);
+
         if (match) {
-          keys.push(item.path);
+          if (keys.length > 1) {
+            setOpenKeys(keys.slice(0, -1));
+          }
+          setSelectedKey(keys[keys.length - 1]);
         }
         if (item.children) {
           findItem(item.children, true);
@@ -39,10 +45,6 @@ const SuperMenu: React.FunctionComponent<IProps> = (props) => {
       });
     };
     findItem(items);
-    if (keys.length > 1) {
-      setOpenKeys(keys.slice(0, -1));
-    }
-    setSelectedKey(keys[keys.length - 1]);
   };
 
   useEffect(() => {

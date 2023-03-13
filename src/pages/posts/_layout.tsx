@@ -1,3 +1,4 @@
+import { Params } from "@/router";
 import { Link, Outlet } from "react-router-dom";
 
 export const Loader = () => {
@@ -6,8 +7,7 @@ export const Loader = () => {
   });
 };
 
-export const Crumb = (props: any) => {
-  const { params } = props;
+export const Crumb = ({ params }: { params: Params["/posts/:id"] }) => {
   return <span>PostId{params.id}</span>;
 };
 
