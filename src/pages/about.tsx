@@ -1,9 +1,9 @@
 import { Link, useModals } from "@/router";
-import { Modals } from "generouted/react-router";
+import { Modals } from "@/routes/modals";
 
 export const Crumb = "关于";
 
-export default function About() {
+const About: React.FunctionComponent = () => {
   const modals = useModals();
 
   return (
@@ -16,4 +16,7 @@ export default function About() {
       <h1>基本路由：About</h1>
     </div>
   );
-}
+};
+
+export default About;
+About.displayName = "About";

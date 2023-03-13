@@ -29,5 +29,4 @@ const Post: FC = () => {
     </div>
   );
 };
-Post.displayName = "文章id";
 export default Post;

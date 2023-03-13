@@ -1,6 +1,6 @@
 import { useMatches } from 'react-router-dom'
 
-export default function Index() {
+const  Index = () =>  {
   const match = useMatches()?.find((match) => match.pathname === '/posts')
   const data = match?.data
 
@@ -16,3 +16,5 @@ export default function Index() {
     </>
   )
 }
+export default  Index
+Index.displayName = "文章id";

@@ -12,6 +12,7 @@ type Path =
   | `/posts/:id`
   | `/posts/:id/:pid?`
   | `/posts/:id/deep`
+  | `/posts/intro/test`
   | `/register`
   | `/splat/${string}`
 

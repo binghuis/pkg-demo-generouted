@@ -2,7 +2,7 @@ import { Link, useMatches } from "react-router-dom";
 import { Module } from "@/routes/regular";
 import { useEffect, useState } from "react";
 
-const Breadcrumb: React.FunctionComponent = () => {
+const SuperBreadcrumb: React.FunctionComponent = () => {
   const matches = useMatches();
   const [breadcrumbs, setBreadcrumbs] = useState<JSX.Element[]>([]);
 
@@ -59,4 +59,4 @@ const Breadcrumb: React.FunctionComponent = () => {
   return <>{renderBreadcrumb()}</>;
 };
 
-export default Breadcrumb;
+export default SuperBreadcrumb;
