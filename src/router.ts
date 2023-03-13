@@ -6,6 +6,7 @@ import { components, hooks, utils } from '@generouted/react-router/client'
 type Path =
   | `/`
   | `/about`
+  | `/about/:id`
   | `/login`
   | `/new`
   | `/posts`
@@ -17,6 +18,7 @@ type Path =
   | `/splat/${string}`
 
 type Params = {
+  '/about/:id': { id: string }
   '/posts/:id': { id: string }
   '/posts/:id/:pid?': { id: string; pid?: string }
   '/posts/:id/deep': { id: string }

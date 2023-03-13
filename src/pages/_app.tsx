@@ -31,12 +31,14 @@ const App: React.FC = () => {
             {
               label: "posts",
               path: "/posts",
-              related: ["/posts/:id"],
               children: [
-                { label: "posts", path: "/posts/" },
-                { label: "postsintrotest", path: "/posts/intro/test" },
-                { label: "postsid", path: "/posts/2" },
-                { label: "postsiddeep", path: "/posts/2/deep" },
+                {
+                  label: "posts",
+                  path: "/posts/",
+                  children: [
+                    { label: "postsintrotest", path: "/posts/intro/test" },
+                  ],
+                },
               ],
             },
           ]}

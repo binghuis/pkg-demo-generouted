@@ -34,16 +34,11 @@ const SuperBreadcrumb: React.FunctionComponent = () => {
   }, [matches]);
 
   const renderBreadcrumb = () => {
-    if (!breadcrumbs || breadcrumbs.length === 0) {
+    if (!breadcrumbs || breadcrumbs.length < 2) {
       return null;
     }
     return (
       <span>
-        {breadcrumbs.length > 0 && (
-          <span>
-            <Link to={"/"}>Home</Link>/
-          </span>
-        )}
         {breadcrumbs.map((Breadcrumb, i) => {
           return (
             <span key={i}>
