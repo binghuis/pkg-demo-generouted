@@ -30,7 +30,7 @@ const App: React.FC = () => {
             },
             {
               label: "posts",
-              path: "/posts",
+              path: "/postsggg",
               children: [
                 {
                   label: "posts",
