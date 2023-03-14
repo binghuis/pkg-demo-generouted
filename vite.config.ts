@@ -1,7 +1,12 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import generouted from "@generouted/react-router";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-})
+  plugins: [
+    react(),
+    generouted({ source: ['./src/pages/**/[\\w[-]*.{jsx,tsx}', '!./src/pages/**/components/**'] })
+  ],
+  resolve: { alias: { "@": "/src" } },
+});

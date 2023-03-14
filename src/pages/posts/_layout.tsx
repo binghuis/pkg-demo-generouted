@@ -1,34 +1,39 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Params } from "@/router";
+import { Link, Outlet } from "react-router-dom";
 
 export const Loader = () => {
-  return Promise.resolve({ source: 'from `src/pages/posts.tsx` layout data loader' })
-}
+  return Promise.resolve({
+    source: "from `src/pages/posts.tsx` layout data loader",
+  });
+};
+
+export const Crumb = ({ params }: { params: Params["/posts/:id"] }) => {
+  return <span>PostId{params.id}</span>;
+};
 
 export default function PostsLayout() {
   return (
     <>
       <h1>Posts Layout - pages/posts/_layout.tsx</h1>
 
-      <div style={{ padding: 18, border: '1px dashed black' }}>
-        <ul style={{ display: 'flex', gap: 24, listStyle: 'none', padding: 0 }}>
-          <li>
-            <Link to="/posts">Posts Index</Link>
-          </li>
-          <li>
-            <Link to="/posts/1">Post 1</Link>
-          </li>
-          <li>
-            <Link to="/posts/2">Post 2</Link>
-          </li>
-          <li>
-            <Link to="/posts/3">Post 3</Link>
-          </li>
-        </ul>
+      <ul style={{ display: "flex", gap: 24, listStyle: "none", padding: 0 }}>
+        <li>
+          <Link to="/posts">Posts Index</Link>
+        </li>
+        <li>
+          <Link to="/posts/1">Post 1</Link>
+        </li>
+        <li>
+          <Link to="/posts/2">Post 2</Link>
+        </li>
+        <li>
+          <Link to="/posts/3">Post 3</Link>
+        </li>
+      </ul>
 
-        <div style={{ margin: '48px 0' }}>
-          <Outlet />
-        </div>
+      <div style={{ margin: "48px 0", width: "100%" }}>
+        <Outlet />
       </div>
     </>
-  )
+  );
 }

@@ -1,10 +1,13 @@
+import { ConfigProvider } from "antd";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Routes } from "generouted/react-router";
 import "./index.css";
+import { Routes } from "./routes";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <ConfigProvider>
     <Routes />
-  </React.StrictMode>
+  </ConfigProvider>
+  // </React.StrictMode>
 );

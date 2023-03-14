@@ -1,16 +1,59 @@
-import { Link } from "react-router-dom";
+/**
+ * 本组件不要直接引用 generouted/react-router，会导致循环依赖
+ */
 
-export default function App({ children }: { children: React.ReactNode }) {
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Sider from "antd/es/layout/Sider";
+import { Content } from "antd/es/layout/layout";
+import SuperBreadcrumb from "../components/super-breadcrumb";
+import SuperMenu from "@/components/super-menu";
+
+const App: React.FC = () => {
   return (
-    <section style={{ margin: 24 }}>
-      <header style={{ display: "flex", gap: 24 }}>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/new">New</Link>
-        <Link to="/posts">Posts</Link>
-      </header>
-
-      <main>{children}</main>
-    </section>
+    <div>
+      <SuperBreadcrumb />
+      <Sider>
+        <SuperMenu
+          items={[
+            {
+              label: "home",
+              path: "/",
+            },
+            {
+              label: "about",
+              path: "/about",
+              matches: ["/about/:id"],
+            },
+            {
+              label: "new",
+              path: "/new",
+            },
+            {
+              label: "posts",
+              key: "ooo",
+              children: [
+                {
+                  label: "posts",
+                  path: "/posts",
+                },
+                {
+                  label: "posts",
+                  key: "iii",
+                  children: [
+                    { label: "postsintrotest", path: "/posts/intro/test" },
+                  ],
+                },
+              ],
+            },
+          ]}
+        />
+      </Sider>
+      <Content>
+        <Outlet />
+      </Content>
+    </div>
   );
-}
+};
+
+export default App;
