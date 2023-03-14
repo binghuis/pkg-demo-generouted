@@ -11,7 +11,7 @@ interface ItemBase {
 
 interface LeafItem extends ItemBase {
   path: Path;
-  matches?: Path[];
+  related?: Path[];
 }
 
 interface InternalItem extends ItemBase {
@@ -33,13 +33,13 @@ const SuperMenu: React.FunctionComponent<IProps> = (props) => {
 
   const findKey = (items: Item[]) => {
     const findItem = (item: Item, itemsTemp: Item[]) => {
-      const { path, matches } = item as LeafItem;
+      const { path, related } = item as LeafItem;
       const { children } = item as InternalItem;
 
       let match;
 
       if (path) {
-        const paths = matches ? [path, ...matches] : [path];
+        const paths = related ? [path, ...related] : [path];
         match = paths.some((path) => matchPath(path, pathname));
       }
 

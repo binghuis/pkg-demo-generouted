@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-export default function New() {
-  console.log('new');
-  
-  return <h1>New</h1>;
-}
-=======
 export const Crumb = "news";
 
 const New: React.FunctionComponent = () => {
@@ -13,4 +6,3 @@ const New: React.FunctionComponent = () => {
 
 export default New;
 New.displayName = "New";
->>>>>>> plugin

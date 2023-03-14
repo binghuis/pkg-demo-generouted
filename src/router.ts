@@ -13,6 +13,7 @@ export type Path =
   | `/posts/:id`
   | `/posts/:id/:pid?`
   | `/posts/:id/deep`
+  | `/posts/:slug`
   | `/posts/intro/test`
   | `/register`
   | `/splat/${string}`
@@ -22,6 +23,7 @@ export type Params = {
   '/posts/:id': { id: string }
   '/posts/:id/:pid?': { id: string; pid?: string }
   '/posts/:id/deep': { id: string }
+  '/posts/:slug': { slug: string }
 }
 
 export type ModalPath = `/modal`
