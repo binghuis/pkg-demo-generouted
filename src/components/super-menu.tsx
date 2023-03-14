@@ -3,48 +3,67 @@ import { useEffect, useState } from "react";
 import { Menu } from "antd";
 import { ItemType } from "antd/es/menu/hooks/useItems";
 import { Path } from "@/router";
-interface Item {
+
+interface ItemBase {
   icon?: React.ReactNode;
   label: string;
-  path: Path | string;
-  related?: (Path | string)[];
-  children?: Item[];
 }
 
+interface LeafItem extends ItemBase {
+  path: Path;
+  matches?: Path[];
+}
+
+interface InternalItem extends ItemBase {
+  key: string;
+  children: Item[];
+}
+
+type Item = InternalItem | LeafItem;
 interface IProps {
   items: Item[];
 }
 
 const SuperMenu: React.FunctionComponent<IProps> = (props) => {
+  const INDEX = "/";
   const { items } = props;
-  const [selectedKey, setSelectedKey] = useState<string>("");
+  const [selectedKey, setSelectedKey] = useState<string>(INDEX);
   const [openKeys, setOpenKeys] = useState<string[]>();
   const { pathname } = useLocation();
 
-  const matches = useMatches();
   const findKey = (items: Item[]) => {
-    const keys: string[] = [];
-    const findItem = (items: Item[], isChild?: boolean) => {
-      items.forEach((item) => {
-        let match;
-        match = matches.some((match) => matchPath(item.path, match.pathname));
-        if (!match && !isChild && item.related) {
-          match = item.related.some((path) => matchPath(path, pathname));
-        }
-        keys.push(item.path);
+    const findItem = (item: Item, itemsTemp: Item[]) => {
+      const { path, matches } = item as LeafItem;
+      const { children } = item as InternalItem;
 
-        if (match) {
-          if (keys.length > 1) {
-            setOpenKeys(keys.slice(0, -1));
-          }
-          setSelectedKey(keys[keys.length - 1]);
+      let match;
+
+      if (path) {
+        const paths = matches ? [path, ...matches] : [path];
+        match = paths.some((path) => matchPath(path, pathname));
+      }
+
+      itemsTemp.push(item);
+
+      if (match) {
+        const lastItem = itemsTemp[itemsTemp.length - 1] as LeafItem;
+
+        setSelectedKey(lastItem.path);
+
+        if (itemsTemp.length > 1) {
+          const openKeys = itemsTemp
+            .slice(0, -1)
+            .map((item) => (item as InternalItem).key);
+
+          setOpenKeys(openKeys);
         }
-        if (item.children) {
-          findItem(item.children, true);
-        }
-      });
+      }
+
+      if (children) {
+        children.forEach((child) => findItem(child, itemsTemp));
+      }
     };
-    findItem(items);
+    items.forEach((item) => findItem(item, []));
   };
 
   useEffect(() => {
@@ -53,17 +72,22 @@ const SuperMenu: React.FunctionComponent<IProps> = (props) => {
 
   const filteredItemsForMenu = (items: Item[]): NonNullable<ItemType>[] => {
     return items.map((item) => {
-      const { path, label } = item;
+      const { label } = item;
+      const { path } = item as LeafItem;
+      const { children, key } = item as InternalItem;
+
       const menuItem: NonNullable<ItemType> & {
         children?: NonNullable<ItemType>[];
       } = {
-        label: item.children ? label : <Link to={path}>{label}</Link>,
-        key: path,
+        label: children ? label : <Link to={path}>{label}</Link>,
+        key: path ?? key,
         title: label,
       };
-      if (item.children) {
-        menuItem.children = filteredItemsForMenu(item.children);
+
+      if (children) {
+        menuItem.children = filteredItemsForMenu(children);
       }
+
       return menuItem;
     });
   };
@@ -74,9 +98,7 @@ const SuperMenu: React.FunctionComponent<IProps> = (props) => {
     <Menu
       selectedKeys={[selectedKey]}
       openKeys={openKeys}
-      onOpenChange={(keys) => {
-        setOpenKeys(keys);
-      }}
+      onOpenChange={setOpenKeys}
       mode="inline"
       items={menuItems}
     />

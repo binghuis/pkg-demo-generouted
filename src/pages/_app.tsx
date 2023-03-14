@@ -23,6 +23,7 @@ const App: React.FC = () => {
             {
               label: "about",
               path: "/about",
+              matches: ["/about/:id"],
             },
             {
               label: "new",
@@ -30,11 +31,15 @@ const App: React.FC = () => {
             },
             {
               label: "posts",
-              path: "/postsggg",
+              key: "ooo",
               children: [
                 {
                   label: "posts",
-                  path: '/posts/',
+                  path: "/posts",
+                },
+                {
+                  label: "posts",
+                  key: "iii",
                   children: [
                     { label: "postsintrotest", path: "/posts/intro/test" },
                   ],
